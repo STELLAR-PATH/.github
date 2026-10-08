@@ -1,35 +1,83 @@
-# Welcome to STELLAR-PATH 🌌
+<div align="center">
 
-> **Deterministic developer tooling and cognitive onboarding aids for the Stellar and Soroban ecosystems.**
+# STELLAR-PATH
 
-STELLAR-PATH builds high-performance, deterministic developer infrastructure designed to eliminate cold-start cognitive overload when navigating, auditing, and building across complex Stellar monorepos and Soroban smart contract architectures.
+### Deterministic Static Analysis, Security Linting & Developer Tooling for Soroban
+
+[![Stellar Ecosystem](https://img.shields.io/badge/Stellar-Soroban-7B3FE4?style=for-the-badge&logo=stellar)](https://stellar.org)
+[![Rust 2021](https://img.shields.io/badge/Rust-2021-DEA584?style=for-the-badge&logo=rust)](https://www.rust-lang.org)
+[![Go 1.22+](https://img.shields.io/badge/Go-1.22+-00ADD8?style=for-the-badge&logo=go)](https://golang.org)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-3178C6?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org)
+[![Drips Stellar Wave](https://img.shields.io/badge/Drips-Stellar%20Wave%20Participant-00D395?style=for-the-badge)](https://drips.network)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)](LICENSE)
+
+<br/>
+
+<p align="center">
+  <b>STELLAR-PATH</b> is an end-to-end repository intelligence and security analysis framework designed to inspect Soroban smart contracts statically without requiring runtime WASM execution environments.
+</p>
+
+</div>
 
 ---
 
-## 🛠 Active Ecosystem Tools
+## 🔭 The STELLAR-PATH Toolchain Topology
 
-| Project | Description | Stack | Status |
+              ┌──────────────────────────────────────────────┐
+              │               Contract Author                │
+              └──────────────────────┬───────────────────────┘
+                                     │
+               1. Bootstrap Project  │  (stellar-scaffold)
+                                     ▼
+              ┌──────────────────────────────────────────────┐
+              │       Standardized Soroban Workspace         │
+              └──────────────────────┬───────────────────────┘
+                                     │
+               2. Static Lint & Scan │  (stellarpath-cli)
+                                     ▼
+              ┌──────────────────────────────────────────────┐
+              │        Deterministic AST Lint Engine         │
+              │   - Raw Symbol Storage Key Collision         │
+              │   - TTL Lifecycle Extension Detection        │
+              │   - Horizon vs Soroban RPC Modernization     │
+              │   - Soroban Security Mistakes (#17, #18, #19)│
+              └──────────────────────┬───────────────────────┘
+                                     │
+               3. Automated PR Guard │  (stellarpath-action)
+                                     ▼
+              ┌──────────────────────────────────────────────┐
+              │        GitHub Actions CI Verification        │
+              └──────────────────────────────────────────────┘
+
+---
+
+## 📦 Active Ecosystem Repositories
+
+| Repository | Tech Stack | Responsibility | Status |
 | :--- | :--- | :--- | :--- |
-| [**stellarpath-cli**](https://github.com/STELLAR-PATH/stellarpath-cli) | Deterministic AST-backed repository scanner and developer onboarding guide | Rust / Syn / Clap | `v0.1.0-active` |
+| [**`stellarpath-cli`**](https://github.com/STELLAR-PATH/stellarpath-cli) | `Rust` `syn` `clap` | High-performance AST static analyzer inspecting Soroban contracts for security anti-patterns, storage collisions, and RPC hygiene using integer basis-points math. | `v0.1.0 (Wave Ready)` |
+| [**`stellar-scaffold`**](https://github.com/STELLAR-PATH/stellar-scaffold) | `Go` `cli` | CLI scaffolding engine standardizing Soroban contract layout, unit test suites, and ecosystem configuration boilerplate. | `Active` |
+| [**`stellarpath-action`**](https://github.com/STELLAR-PATH/stellarpath-action) | `TypeScript` `actions` | Automated GitHub Action executing deterministic lint checks directly inside pull requests to prevent regressions before mainnet deployment. | `Active` |
 
 ---
 
-## 🎯 Our Mission
+## ⚡ Quickstart
 
-- **Deterministic Verification:** Grounding repository analysis in verifiable AST structures and manifests rather than probabilistic outputs.
-- **Zero-Latency Developer Onboarding:** Guiding developers directly to primary contract definitions, SDK integration points, and test suites.
-- **Strict Quality Standards:** Enforcing zero-warning builds, strict Clippy linter conformance, and thorough fixture coverage.
+### 1. Static Contract Analysis (`stellarpath-cli`)
+```bash
+# Clone and build the deterministic engine
+git clone https://github.com/STELLAR-PATH/stellarpath-cli.git
+cd stellarpath-cli
+cargo build --release
 
----
+# Run static inspection across contract source files
+./target/release/stellarpath scan ./contracts --format terminal
+```
 
-## 🤝 Community & Contributions
-
-We welcome open-source contributions from the global Stellar and Soroban communities:
-
-- Check our [Good First Issues](https://github.com/STELLAR-PATH/stellarpath-cli/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) to get involved.
-- Read our [Contributing Guidelines](https://github.com/STELLAR-PATH/stellarpath-cli/blob/main/CONTRIBUTING.md).
-- Security disclosures: Review our [Security Policy](https://github.com/STELLAR-PATH/stellarpath-cli/blob/main/SECURITY.md).
-
----
-
-<sub>Maintained under the Stellar Community Open Source Initiatives.</sub>
+### 2. Scaffold a New Soroban Workspace (`stellar-scaffold`)
+```bash
+# Run the Go scaffolding generator
+git clone https://github.com/STELLAR-PATH/stellar-scaffold.git
+cd stellar-scaffold
+go run main.go init my-soroban-project
+```
