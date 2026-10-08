@@ -89,7 +89,7 @@ env.storage().instance().extend_ttl(100, 1000);
 
 | Repository | Tech Stack | Responsibility | Status |
 | :--- | :--- | :--- | :--- |
-| [**`stellarpath-cli`**](https://github.com/STELLAR-PATH/stellarpath-cli) | `Rust` `syn` `clap` | High-performance AST static analyzer inspecting Soroban contracts for security anti-patterns, storage collisions, and RPC hygiene using integer basis-points math. | `v0.1.0 (Wave Ready)` |
+| [**`stellarpath-cli`**](https://github.com/STELLAR-PATH/stellarpath-cli) | `Rust` `syn` `clap` | High-performance AST static analyzer inspecting Soroban contracts for security anti-patterns, storage collisions, and RPC hygiene using integer basis-points math. | `v0.1.0` |
 | [**`stellar-scaffold`**](https://github.com/STELLAR-PATH/stellar-scaffold) | `Go` `cli` | CLI scaffolding engine standardizing Soroban contract layout, unit test suites, and ecosystem configuration boilerplate. | `Active` |
 | [**`stellarpath-action`**](https://github.com/STELLAR-PATH/stellarpath-action) | `TypeScript` `actions` | Automated GitHub Action executing deterministic lint checks directly inside pull requests to prevent regressions before mainnet deployment. | `Active` |
 
