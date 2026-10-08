@@ -1,6 +1,13 @@
 <div align="center">
 
-# STELLAR-PATH
+```text
+███████╗████████╗███████╗██╗     ██╗      █████╗ ██████╗       ██████╗  █████╗ ████████╗██╗  ██╗
+██╔════╝╚══██╔══╝██╔════╝██║     ██║     ██╔══██╗██╔══██╗      ██╔══██╗██╔══██╗╚══██╔══╝██║  ██║
+███████╗   ██║   █████╗  ██║     ██║     ███████║██████╔╝█████╗██████╔╝███████║   ██║   ███████║
+╚════██║   ██║   ██╔══╝  ██║     ██║     ██╔══██║██╔══██╗╚════╝██╔═══╝ ██╔══██║   ██║   ██╔══██║
+███████║   ██║   ███████╗███████╗███████╗██║  ██║██║  ██║      ██║     ██║  ██║   ██║   ██║  ██║
+╚══════╝   ╚═╝   ╚══════╝╚══════╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝      ╚═╝     ╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝
+```
 
 ### Deterministic Static Analysis, Security Linting & Developer Tooling for Soroban
 
@@ -8,6 +15,7 @@
 [![Rust 2021](https://img.shields.io/badge/Rust-2021-DEA584?style=for-the-badge&logo=rust)](https://www.rust-lang.org)
 [![Go 1.22+](https://img.shields.io/badge/Go-1.22+-00ADD8?style=for-the-badge&logo=go)](https://golang.org)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-3178C6?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org)
+[![Drips Stellar Wave](https://img.shields.io/badge/Drips-Stellar%20Wave%20Participant-00D395?style=for-the-badge)](https://drips.network)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)](LICENSE)
 
 <br/>
@@ -22,31 +30,59 @@
 
 ## 🔭 The STELLAR-PATH Toolchain Topology
 
-              ┌──────────────────────────────────────────────┐
-              │               Contract Author                │
-              └──────────────────────┬───────────────────────┘
-                                     │
-               1. Bootstrap Project  │  (stellar-scaffold)
-                                     ▼
-              ┌──────────────────────────────────────────────┐
-              │       Standardized Soroban Workspace         │
-              └──────────────────────┬───────────────────────┘
-                                     │
-               2. Static Lint & Scan │  (stellarpath-cli)
-                                     ▼
-              ┌──────────────────────────────────────────────┐
-              │        Deterministic AST Lint Engine         │
-              │   - Raw Symbol Storage Key Collision         │
-              │   - TTL Lifecycle Extension Detection        │
-              │   - Horizon vs Soroban RPC Modernization     │
-              │   - Soroban Security Mistakes (#17, #18, #19)│
-              └──────────────────────┬───────────────────────┘
-                                     │
-               3. Automated PR Guard │  (stellarpath-action)
-                                     ▼
-              ┌──────────────────────────────────────────────┐
-              │        GitHub Actions CI Verification        │
-              └──────────────────────────────────────────────┘
+```text
+       +-------------------------------------------------------------+
+       |                     Contract Developer                      |
+       +------------------------------+------------------------------+
+                                      |
+                     1. Generate Scaffold Workspace
+                                      v
+       +-------------------------------------------------------------+
+       |                  stellar-scaffold (Go CLI)                  |
+       |  * Standardized directory trees                             |
+       |  * Soroban SDK dependency pinning                           |
+       |  * Automated test harness boilerplate                       |
+       +------------------------------+------------------------------+
+                                      |
+                     2. Pre-Compile Static Inspection
+                                      v
+       +-------------------------------------------------------------+
+       |                  stellarpath-cli (Rust Engine)              |
+       |  * Abstract Syntax Tree (AST) Traversal (`syn`)             |
+       |  * Typed DataKey collision prevention                       |
+       |  * Instance / Persistent Storage TTL lifecycle checks       |
+       |  * Modern RPC vs Horizon endpoint detection                 |
+       |  * Security Mistakes (#17 panic, #18 unwrap, #19 events)   |
+       +------------------------------+------------------------------+
+                                      |
+                     3. Continuous Integration Gatekeeper
+                                      v
+       +-------------------------------------------------------------+
+       |               stellarpath-action (GitHub Action)            |
+       |  * Pull Request AST auditing & automated review comments    |
+       |  * Zero-warning verification rules                          |
+       |  * SARIF / JSON diagnostic reporting                        |
+       +-------------------------------------------------------------+
+```
+
+---
+
+## 🔒 Example: Catching DataKey Collisions
+
+Our deterministic static analysis enforces safe storage patterns automatically, preventing dangerous raw symbol collisions in smart contracts.
+
+```rust
+// ✅ SECURE: Typed variant prevents collision
+#[contracttype]
+#[derive(Clone)]
+pub enum DataKey {
+    Admin,
+    Allowance(Address),
+}
+
+env.storage().instance().set(&DataKey::Admin, &admin);
+env.storage().instance().extend_ttl(100, 1000);
+```
 
 ---
 
@@ -63,6 +99,7 @@
 ## ⚡ Quickstart
 
 ### 1. Static Contract Analysis (`stellarpath-cli`)
+
 ```bash
 # Clone and build the deterministic engine
 git clone https://github.com/STELLAR-PATH/stellarpath-cli.git
@@ -74,6 +111,7 @@ cargo build --release
 ```
 
 ### 2. Scaffold a New Soroban Workspace (`stellar-scaffold`)
+
 ```bash
 # Run the Go scaffolding generator
 git clone https://github.com/STELLAR-PATH/stellar-scaffold.git
